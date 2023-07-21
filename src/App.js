@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Chip from "@mui/material/Chip";
+import FaceIcon from "@mui/icons-material/Face";
+import Paper from "@mui/material/Paper";
+import LockIcon from "@mui/icons-material/Lock";
+import Switch from "@mui/material/Switch";
 
 function App() {
+  const [checked, setChecked] = useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Paper elevation={3} style={{ padding: "10px", paddingBottom: "50px" }}>
+        <div style={{justifyContent:"center", display:"flex"}}>
+          {checked ? (
+            <Chip
+              icon={<LockIcon />}
+              label="Log In"
+              variant="outlined"
+              color="info"
+            />
+          ) : (
+            <Chip
+              icon={<FaceIcon />}
+              label="Sign Up"
+              variant="outlined"
+              color="info"
+            />
+          )}
+          <br />
+
+          <Switch
+            checked={checked}
+            onChange={handleChange}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+        </div>
+        {checked ? <Login /> : <Signup />}
+      </Paper>
     </div>
   );
 }
